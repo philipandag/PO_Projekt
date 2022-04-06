@@ -18,7 +18,7 @@ void Wilk::akcja()
 	cout << "Wilk Akcja" << endl;
 }
 
-void Wilk::kolizja()
+void Wilk::kolizja(Organizm& atakujacy)
 {
 
 }

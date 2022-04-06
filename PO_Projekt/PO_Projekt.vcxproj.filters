@@ -73,7 +73,7 @@
       <Filter>Pliki nagłówkowe\Rosliny</Filter>
     </ClInclude>
     <ClInclude Include="BarszczSosnowskiego.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\Rosliny</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,11 +122,11 @@
     <ClCompile Include="WilczeJagody.cpp">
       <Filter>Pliki źródłowe\Rosliny</Filter>
     </ClCompile>
-    <ClCompile Include="BarszczSosnowskiego.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="BarszczSosnowskiego.cpp">
+      <Filter>Pliki źródłowe\Rosliny</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

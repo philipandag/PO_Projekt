@@ -18,7 +18,7 @@ void Zolw::akcja()
 	cout << "Zolw Akcja" << endl;
 }
 
-void Zolw::kolizja()
+void Zolw::kolizja(Organizm& atakujacy)
 {
 
 }

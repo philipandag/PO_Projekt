@@ -10,7 +10,7 @@ public:
 	Czlowiek(Swiat& swiat);
 	~Czlowiek();
 	void akcja() override;
-	void kolizja() override;
+	void kolizja(Organizm& atakujacy) override;
 	void rysowanie() override;
 };
 

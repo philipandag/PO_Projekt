@@ -6,8 +6,8 @@
 #define new DEBUG_NEW
 #endif
 
-#include "Organizm.h"
 #include "Swiat.h"
+#include "Organizm.h"
 
 #include "Antylopa.h"
 #include "CyberOwca.h"
@@ -23,20 +23,17 @@ int main()
 
 	Swiat swiat(10, 10);
 
-	swiat.dodajOrganizm(Czlowiek(swiat), 0, 0);
-	swiat.dodajOrganizm(Owca(swiat), 1, 0);
-	swiat.dodajOrganizm(CyberOwca(swiat), 2, 0);
-	swiat.dodajOrganizm(Wilk(swiat), 1, 1);
-	swiat.dodajOrganizm(Lis(swiat), 2, 2);
-	swiat.dodajOrganizm(Antylopa(swiat), 3, 3);
+	swiat.dodajOrganizm(new Czlowiek(swiat), 0, 0);
+	swiat.dodajOrganizm(new Owca(swiat), 1, 0);
+	swiat.dodajOrganizm(new CyberOwca(swiat), 2, 0);
+	swiat.dodajOrganizm(new Wilk(swiat), 1, 1);
+	swiat.dodajOrganizm(new Lis(swiat), 2, 2);
+	swiat.dodajOrganizm(new Antylopa(swiat), 3, 3);
 	cout << endl;
-	char input = NULL;
 	swiat.rysujSwiat();
-	while (input != EOF)
+	while (true)
 	{
-		input = _getch();
 		system("cls");
-		cout << "input: " << input << endl;
 		swiat.wykonajTure();
 		swiat.rysujSwiat();
 	}

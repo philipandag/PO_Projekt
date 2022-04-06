@@ -9,7 +9,7 @@ public:
     CyberOwca(Swiat& swiat);
     ~CyberOwca();
     void akcja() override;
-    void kolizja() override;
+    void kolizja(Organizm& atakujacy) override;
     void rysowanie() override;
 };
 

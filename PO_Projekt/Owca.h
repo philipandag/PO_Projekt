@@ -9,7 +9,7 @@ public:
 	Owca(Swiat& swiat);
 	~Owca();
 	void akcja() override;
-	void kolizja() override;
+	void kolizja(Organizm& atakujacy) override;
 	void rysowanie() override;
 };
 

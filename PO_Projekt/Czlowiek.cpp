@@ -13,6 +13,8 @@ Czlowiek::~Czlowiek()
 	cout << "Czlowiek Papa" << endl;
 }
 
+
+
 void Czlowiek::akcja()
 {
 	char ruch;
@@ -22,14 +24,30 @@ void Czlowiek::akcja()
 		switch (ruch)
 		{
 		case 'w':
-
+			y--;
+			break;
+		case 's':
+			y++;
+			break;
+		case 'a':
+			x--;
+			break;
+		case 'd':
+			x++;
+			break;
+		default:
+			continue;
 		}
+		break;
 	}
 }
 
-void Czlowiek::kolizja()
+void Czlowiek::kolizja(Organizm& atakujacy)
 {
-	cout << "Czlowiek kolizja" << endl;
+	if (atakujacy.getSila() >= this->sila)
+		toggleZyje();
+	else
+		atakujacy.toggleZyje();
 }
 
 void Czlowiek::rysowanie()

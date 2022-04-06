@@ -18,7 +18,7 @@ void CyberOwca::akcja()
 	cout << "CyberOwca Akcja" << endl;
 }
 
-void CyberOwca::kolizja()
+void CyberOwca::kolizja(Organizm& atakujacy)
 {
 
 }

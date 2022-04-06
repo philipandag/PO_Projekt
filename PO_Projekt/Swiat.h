@@ -5,8 +5,10 @@
 
 using std::priority_queue;
 
+
 class Swiat
 {
+
 	priority_queue<Organizm*> organizmy;
 	Organizm*** plansza;
 	int planszaX;
@@ -17,5 +19,5 @@ public:
 	~Swiat();
 	void wykonajTure();
 	void rysujSwiat();
-	void dodajOrganizm(Organizm&& organizm, int x, int y);
+	void dodajOrganizm(Organizm* organizm, int x, int y);
 };

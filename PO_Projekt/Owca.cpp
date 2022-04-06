@@ -18,7 +18,7 @@ void Owca::akcja()
 	cout << "Owca Akcja" << endl;
 }
 
-void Owca::kolizja()
+void Owca::kolizja(Organizm& atakujacy)
 {
 
 }

@@ -9,7 +9,7 @@ public:
 	Zolw(Swiat& swiat);
 	~Zolw();
 	void akcja() override;
-	void kolizja() override;
+	void kolizja(Organizm& atakujacy) override;
 	void rysowanie() override;
 };
 

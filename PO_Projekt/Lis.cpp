@@ -18,7 +18,7 @@ void Lis::akcja()
 	cout << "Lis Akcja" << endl;
 }
 
-void Lis::kolizja()
+void Lis::kolizja(Organizm& atakujacy)
 {
 
 }

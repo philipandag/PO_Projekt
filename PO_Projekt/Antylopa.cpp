@@ -18,7 +18,7 @@ void Antylopa::akcja()
 	cout << "Antylopa akcja" << endl;
 }
 
-void Antylopa::kolizja()
+void Antylopa::kolizja(Organizm& atakujacy)
 {
 
 }
