@@ -6,5 +6,10 @@ class Antylopa :
 
 public:
     Antylopa(int x, int y, Swiat& swiat);
+    Antylopa(Swiat& swiat);
+    ~Antylopa();
+    void akcja() override;
+    void kolizja() override;
+    void rysowanie() override;
 };
 

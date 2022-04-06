@@ -6,15 +6,6 @@ class Zwierze : public Organizm
 public:
 
 	Zwierze(int sila, int inicjatywa, int x, int y, Swiat& swiat);
-
-	void akcja()
-	{
-
-	}
-
-	void kolizja()
-	{
-
-	}
+	Zwierze(int x, int y, Swiat& swiat);
 };
 

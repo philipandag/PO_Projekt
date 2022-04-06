@@ -163,6 +163,7 @@
     <ClCompile Include="Czlowiek.cpp" />
     <ClCompile Include="Guarana.cpp" />
     <ClCompile Include="Lis.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Mlecz.cpp" />
     <ClCompile Include="Organizm.cpp" />
     <ClCompile Include="Owca.cpp" />
