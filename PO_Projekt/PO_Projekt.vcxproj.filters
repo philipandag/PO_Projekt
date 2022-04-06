@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Zwierzeta">
+      <UniqueIdentifier>{e6484aa1-fde2-4cb7-9be1-eaeb5da30cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Zwierzeta">
+      <UniqueIdentifier>{abb9fe89-1fbe-4d9b-8dac-3482ea23d180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Rosliny">
+      <UniqueIdentifier>{e89dc3e5-b454-485a-9d2d-9f5e5240b066}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Rosliny">
+      <UniqueIdentifier>{f3842732-0086-48ba-9b4e-80ede56302c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Swiat.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Organizm.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Zwierze.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Antylopa.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="CyberOwca.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="Czlowiek.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="Lis.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="Owca.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="Wilk.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="Zolw.h">
+      <Filter>Pliki nagłówkowe\Zwierzeta</Filter>
+    </ClInclude>
+    <ClInclude Include="Roslina.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Trawa.h">
+      <Filter>Pliki nagłówkowe\Rosliny</Filter>
+    </ClInclude>
+    <ClInclude Include="Mlecz.h">
+      <Filter>Pliki nagłówkowe\Rosliny</Filter>
+    </ClInclude>
+    <ClInclude Include="Guarana.h">
+      <Filter>Pliki nagłówkowe\Rosliny</Filter>
+    </ClInclude>
+    <ClInclude Include="WilczeJagody.h">
+      <Filter>Pliki nagłówkowe\Rosliny</Filter>
+    </ClInclude>
+    <ClInclude Include="BarszczSosnowskiego.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Swiat.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Organizm.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Zwierze.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Antylopa.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="CyberOwca.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="Czlowiek.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="Lis.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="Owca.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="Wilk.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="Zolw.cpp">
+      <Filter>Pliki źródłowe\Zwierzeta</Filter>
+    </ClCompile>
+    <ClCompile Include="Roslina.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Trawa.cpp">
+      <Filter>Pliki źródłowe\Rosliny</Filter>
+    </ClCompile>
+    <ClCompile Include="Mlecz.cpp">
+      <Filter>Pliki źródłowe\Rosliny</Filter>
+    </ClCompile>
+    <ClCompile Include="Guarana.cpp">
+      <Filter>Pliki źródłowe\Rosliny</Filter>
+    </ClCompile>
+    <ClCompile Include="WilczeJagody.cpp">
+      <Filter>Pliki źródłowe\Rosliny</Filter>
+    </ClCompile>
+    <ClCompile Include="BarszczSosnowskiego.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
