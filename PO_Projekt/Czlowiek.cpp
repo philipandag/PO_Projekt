@@ -1,11 +1,13 @@
 #include "Czlowiek.h"
 
-Czlowiek::Czlowiek(int x, int y, Swiat& swiat) :
-	Zwierze(5, 4, x, y, swiat)
+Czlowiek::Czlowiek(int x, int y, ReferencjaSwiata& swiat) :
+	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat),
+	umiejetnoscCooldown(UMIEJETNOSC_COOLDOWN)
 {}
 
-Czlowiek::Czlowiek(Swiat& swiat) :
-	Zwierze(5, 4, swiat)
+Czlowiek::Czlowiek(ReferencjaSwiata& swiat) :
+	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat),
+	umiejetnoscCooldown(UMIEJETNOSC_COOLDOWN)
 {}
 
 Czlowiek::~Czlowiek()
@@ -13,44 +15,99 @@ Czlowiek::~Czlowiek()
 	cout << "Czlowiek Papa" << endl;
 }
 
+string Czlowiek::getNazwa() const
+{
+	return "Czlowiek";
+}
 
+void Czlowiek::umiejetnoscCooldownWDol()
+{
+	umiejetnoscCooldown > 0 ? --umiejetnoscCooldown : NULL;
+	if (sila > SILA)
+		sila--;
+}
 
 void Czlowiek::akcja()
 {
+	potomstwoCooldownWDol();
+	umiejetnoscCooldownWDol();
+
+	cout << "Czlowiek czeka na ruch\n";
 	char ruch;
+	Kierunek k;
+
 	while (true)
 	{
 		ruch = _getch();
 		switch (ruch)
 		{
 		case 'w':
-			y--;
+			k = Kierunek::N;
 			break;
 		case 's':
-			y++;
+			k = Kierunek::S;
 			break;
 		case 'a':
-			x--;
+			k = Kierunek::W;
 			break;
 		case 'd':
-			x++;
+			k = Kierunek::E;
 			break;
+		case ' ':
+			if (specjalnaUmiejetnosc())
+				break;
+			else
+				continue;
 		default:
 			continue;
 		}
 		break;
 	}
+
+	przemieszczenie(x + k.getDx(), y + k.getDy());
 }
 
 void Czlowiek::kolizja(Organizm& atakujacy)
 {
-	if (atakujacy.getSila() >= this->sila)
-		toggleZyje();
+	if (instanceof<Czlowiek>(atakujacy))
+	{
+		if (gotowyNaPotomstwo() && atakujacy.gotowyNaPotomstwo())
+			stworzPotomstwo();
+	}
+	else if (atakujacy.getSila() >= this->sila)
+		zabij();
 	else
-		atakujacy.toggleZyje();
+		atakujacy.zabij();
+}
+
+void Czlowiek::stworzPotomstwo()
+{
+	Czlowiek* potomstwo = new Czlowiek(swiat);
+	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
+		delete potomstwo;
+	else
+		resetPotomstwoCooldown();
 }
 
 void Czlowiek::rysowanie()
 {
 	cout << "C";
+}
+
+void Czlowiek::resetPotomstwoCooldown()
+{
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
+}
+
+bool Czlowiek::specjalnaUmiejetnosc()
+{
+	if (umiejetnoscCooldown == 0)
+	{
+		sila = 10;
+		umiejetnoscCooldown = UMIEJETNOSC_COOLDOWN;
+		swiat.dodajLog("Czlowiek uzywa umiejetnosci Magiczny Eliksir!");
+		return true;
+	}
+	cout << "Czlowiek nie moze jeszcze uzyc Magiczny Eliksir przez " << umiejetnoscCooldown << " tur\n";
+	return false;
 }

@@ -1,95 +1,112 @@
 #include "Swiat.h"
 #include <iostream>
+#include <windows.h>
 
 using std::cout;
 using std::endl;
 
-Swiat::Swiat(int xSize, int ySize):
+Swiat::Swiat(int xSize, int ySize) :
 	organizmy(),
-	planszaX(xSize),
-	planszaY(xSize)
-{
-	plansza = new Organizm**[xSize];
-	for (int x = 0; x < xSize; x++)
-	{
-		plansza[x] = new Organizm*[ySize];
+	plansza(xSize, ySize),
+	numerTury(1)
+{}
 
-		for (int y = 0; y < ySize; y++)
-			plansza[x][y] = nullptr;
-	}
-}
-
-Swiat::~Swiat()
+bool Swiat::grabarz(ListaOrganizmow::iterator i)
 {
-	for (int x = 0; x < planszaX; x++)
+	if (organizmy[i].getZyje() == false)
 	{
-		delete plansza[x];
+		organizmy -= i;
+		return true;
 	}
-	delete plansza;
+	return false;
 }
 
 void Swiat::wykonajTure()
 {
-	priority_queue<Organizm*> buffer = organizmy;
+	log.push_back(getNapisTury());
+	int iloscOrganizmow = organizmy.size();
+	bool update = true;
 
-	for (int i = 0; i < buffer.size(); i++)
+	for (ListaOrganizmow::iterator i = organizmy.begin(); i != organizmy.end(); i++)
 	{
-		Organizm* o = buffer.top();
-		int oldX = o->getX();
-		int oldY = o->getY();
-		o->akcja();
-		if (o->getZyje() == true)
+		if (update)
 		{
-				plansza[oldX][oldY] = nullptr;
-
-				int x = o->getX(), y = o->getY();
-				if (plansza[x][y] != nullptr)
-				{
-					plansza[x][y]->kolizja(*o);
-					if (plansza[x][y]->getZyje() == false)
-						plansza[x][y] = o;
-				}
-				else
-					plansza[x][y] = o;
-			buffer.pop();
-			organizmy.pop();
-			if(!o->getZyje())
-				organizmy.push(o);
+			rysujSwiat();
+			Sleep(100);
+			update = true;
 		}
+
+		Organizm& o = organizmy[i];
+
+		if (grabarz(i))
+			continue;
+
+		o.akcja();
+
 	}
+	numerTury++;
+	rysujSwiat();
 }
 
 void Swiat::rysujSwiat()
 {
-	cout << "\nSWIAT" << endl;
-	for (int y = 0; y < planszaY; y++)
+	system("cls");
+	cout << "Tura " << getNapisTury() << "\n\tSwiat:\n";
+	for (int y = 0; y < plansza.getYSize(); y++)
 	{
 		cout << "|";
-		for (int x = 0; x < planszaY; x++)
+		for (int x = 0; x < plansza.getXSize(); x++)
 		{
 			if (plansza[x][y] != nullptr)
 			{
-				plansza[x][y]->rysowanie();
-				cout << " ";
-			}
+				organizmy[plansza[x][y]].rysowanie();
+			}		
 			else
-				cout << "  ";
+				cout << " ";
 		}
 		cout << "|" << endl;
 	}
+	wypiszLog();
 }
 
 void Swiat::dodajOrganizm(Organizm* organizm, int x, int y)
 {
-	if (plansza[x][y] == nullptr)
+	if (plansza.naPlanszy(x, y) && plansza.wolne(x,y))
 	{
 		organizm->setPozycja(x, y);
-		organizmy.push(organizm);
-		plansza[x][y] = organizm;
+		organizmy += organizm;
+		plansza[x][y] = organizm->iterator;
 	}
 	else
 	{
-		cout << "Pole zajête!" << endl;
-		delete organizm;
+		dodajLog("Nie mozna postawic tutaj organizmu!(" + to_string(x) + ", " + to_string(y) + ")");
 	}
+}
+
+string Swiat::getNapisTury() const
+{
+	return "Tura " + to_string(numerTury) + ". ";
+}
+
+void Swiat::dodajLog(string komunikat)
+{
+	log.push_back(komunikat);
+}
+
+void Swiat::wypiszLog()
+{
+	for (list<string>::iterator it = log.begin(); log.size() > MAX_LOG_SIZE;)
+		log.erase(it++);
+
+	for (list<string>::iterator it = log.begin(); it != log.end(); it++)
+		cout << *it << endl;
+}
+
+Plansza& Swiat::getPlansza()
+{
+	return plansza;
+}
+ListaOrganizmow& Swiat::getOrganizmy()
+{
+	return organizmy;
 }

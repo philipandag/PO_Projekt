@@ -75,6 +75,24 @@
     <ClInclude Include="BarszczSosnowskiego.h">
       <Filter>Pliki nagłówkowe\Rosliny</Filter>
     </ClInclude>
+    <ClInclude Include="ListaOrganizmow.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="miscellaneous.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Plansza.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Kierunek.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ReferencjaSwiataDlaOrganizmu.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Swiat.cpp">
@@ -127,6 +145,21 @@
     </ClCompile>
     <ClCompile Include="BarszczSosnowskiego.cpp">
       <Filter>Pliki źródłowe\Rosliny</Filter>
+    </ClCompile>
+    <ClCompile Include="ListaOrganizmow.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="miscellaneous.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Plansza.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Kierunek.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ReferencjaSwiataDlaOrganizmu.cpp">
+      <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

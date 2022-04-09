@@ -1,11 +1,11 @@
 #include "Zolw.h"
 
-Zolw::Zolw(int x, int y, Swiat& swiat) :
-	Zwierze(2, 1, x, y, swiat)
+Zolw::Zolw(int x, int y, ReferencjaSwiata& swiat) :
+	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat)
 {}
 
-Zolw::Zolw(Swiat& swiat) :
-	Zwierze(11, 4, swiat)
+Zolw::Zolw(ReferencjaSwiata& swiat) :
+	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat)
 {}
 
 Zolw::~Zolw()
@@ -15,15 +15,33 @@ Zolw::~Zolw()
 
 void Zolw::akcja()
 {
-	cout << "Zolw Akcja" << endl;
+
 }
 
 void Zolw::kolizja(Organizm& atakujacy)
+{
+	if (atakujacy.getSila() >= this->sila)
+		zabij();
+	else
+		atakujacy.zabij();
+}
+
+void Zolw::stworzPotomstwo()
 {
 
 }
 
 void Zolw::rysowanie()
 {
-	cout << "Z";
+	cout << ZNAK;
+}
+
+string Zolw::getNazwa() const
+{
+	return "Zolw";
+}
+
+void Zolw::resetPotomstwoCooldown()
+{
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
 }

@@ -1,11 +1,11 @@
 #include "Antylopa.h"
 
-Antylopa::Antylopa(int x, int y, Swiat& swiat) :
-	Zwierze(4, 4, x, y, swiat)
+Antylopa::Antylopa(int x, int y, ReferencjaSwiata& swiat) :
+	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat)
 {}
 
-Antylopa::Antylopa(Swiat& swiat) :
-	Zwierze(4, 4, swiat)
+Antylopa::Antylopa(ReferencjaSwiata& swiat) :
+	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat)
 {}
 
 Antylopa::~Antylopa()
@@ -15,7 +15,7 @@ Antylopa::~Antylopa()
 
 void Antylopa::akcja()
 {
-	cout << "Antylopa akcja" << endl;
+
 }
 
 void Antylopa::kolizja(Organizm& atakujacy)
@@ -23,7 +23,22 @@ void Antylopa::kolizja(Organizm& atakujacy)
 
 }
 
+void Antylopa::stworzPotomstwo()
+{
+
+}
+
 void Antylopa::rysowanie()
 {
-	cout << "A";
+	cout << ZNAK;
+}
+
+string Antylopa::getNazwa() const
+{
+	return "Antylopa";
+}
+
+void Antylopa::resetPotomstwoCooldown()
+{
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
 }

@@ -3,18 +3,23 @@
 class Roslina :
     public Organizm
 {
-
+	static const int POTOMSTWO_COOLDOWN = 1;
 public:
-	Roslina(int sila, int x, int y, Swiat& swiat);
+	Roslina(int sila, int potomstwoCooldown, int x, int y, ReferencjaSwiata& swiat);
 
 	void akcja()
 	{
 
 	}
 
-	void kolizja()
+	void kolizja(Organizm& atakujacy) override
 	{
+		atakujacy.zabij();
+	}
 
+	void resetPotomstwoCooldown() override
+	{
+		potomstwoCooldown = POTOMSTWO_COOLDOWN;
 	}
 };
 

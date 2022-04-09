@@ -1,10 +1,5 @@
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
-#include <iostream>
-#ifdef _DEBUG
-#define DEBUG_NEW new(NORMAL_BLOCK, __FILE_, _LINE_)
-#define new DEBUG_NEW
-#endif
+#include <string>
+#include <time.h>
 
 #include "Swiat.h"
 #include "Organizm.h"
@@ -17,25 +12,26 @@
 #include "Wilk.h"
 #include "Zolw.h"
 
+#include "BarszczSosnowskiego.h"
+#include "Guarana.h"
+#include "Mlecz.h"
+#include "Trawa.h"
+#include "WilczeJagody.h"
+
 int main()
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
+	srand(time(0));
 	Swiat swiat(10, 10);
 
-	swiat.dodajOrganizm(new Czlowiek(swiat), 0, 0);
-	swiat.dodajOrganizm(new Owca(swiat), 1, 0);
-	swiat.dodajOrganizm(new CyberOwca(swiat), 2, 0);
-	swiat.dodajOrganizm(new Wilk(swiat), 1, 1);
-	swiat.dodajOrganizm(new Lis(swiat), 2, 2);
-	swiat.dodajOrganizm(new Antylopa(swiat), 3, 3);
-	cout << endl;
-	swiat.rysujSwiat();
+
+	swiat.dodajOrganizm(new Czlowiek(swiat), 1, 1);
+	swiat.dodajOrganizm(new Czlowiek(swiat), 1, 2);
+
+
+	int licznikTury = 1;
 	while (true)
 	{
-		system("cls");
 		swiat.wykonajTure();
-		swiat.rysujSwiat();
 	}
 	
 }
