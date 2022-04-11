@@ -32,7 +32,7 @@ void Swiat::wykonajTure()
 		if (update)
 		{
 			rysujSwiat();
-			Sleep(100);
+			//Sleep(100);
 			update = true;
 		}
 

@@ -42,22 +42,24 @@ void Czlowiek::akcja()
 		switch (ruch)
 		{
 		case 'w':
+		case 'W':
 			k = Kierunek::N;
 			break;
 		case 's':
+		case 'S':
 			k = Kierunek::S;
 			break;
 		case 'a':
+		case 'A':
 			k = Kierunek::W;
 			break;
 		case 'd':
+		case 'D':
 			k = Kierunek::E;
 			break;
 		case ' ':
-			if (specjalnaUmiejetnosc())
-				break;
-			else
-				continue;
+			specjalnaUmiejetnosc();
+
 		default:
 			continue;
 		}

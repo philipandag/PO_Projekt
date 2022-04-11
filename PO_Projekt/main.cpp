@@ -25,7 +25,7 @@ int main()
 
 
 	swiat.dodajOrganizm(new Czlowiek(swiat), 1, 1);
-	swiat.dodajOrganizm(new Czlowiek(swiat), 1, 2);
+	swiat.dodajOrganizm(new Wilk(swiat), 1, 2);
 
 
 	int licznikTury = 1;
