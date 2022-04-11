@@ -31,6 +31,12 @@ void Trawa::rysowanie()
 {
 	cout << ZNAK;
 }
+
+char Trawa::getZnak()
+{
+	return ZNAK;
+}
+
 void Trawa::stworzPotomstwo()
 {
 	

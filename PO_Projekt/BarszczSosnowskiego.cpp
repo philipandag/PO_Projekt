@@ -27,6 +27,12 @@ void BarszczSosnowskiego::rysowanie()
 {
 	cout << ZNAK;
 }
+
+char BarszczSosnowskiego::getZnak()
+{
+	return ZNAK;
+}
+
 void BarszczSosnowskiego::stworzPotomstwo()
 {
 

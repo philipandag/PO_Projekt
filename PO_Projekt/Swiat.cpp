@@ -11,7 +11,7 @@ Swiat::Swiat(int xSize, int ySize) :
 	numerTury(1)
 {}
 
-bool Swiat::grabarz(ListaOrganizmow::iterator i)
+bool Swiat::grabarz(ListaOrganizmow::iterator& i)
 {
 	if (organizmy[i].getZyje() == false)
 	{
@@ -24,17 +24,11 @@ bool Swiat::grabarz(ListaOrganizmow::iterator i)
 void Swiat::wykonajTure()
 {
 	log.push_back(getNapisTury());
-	int iloscOrganizmow = organizmy.size();
-	bool update = true;
 
 	for (ListaOrganizmow::iterator i = organizmy.begin(); i != organizmy.end(); i++)
 	{
-		if (update)
-		{
-			rysujSwiat();
-			//Sleep(100);
-			update = true;
-		}
+		rysujSwiat();
+		//Sleep(100);
 
 		Organizm& o = organizmy[i];
 
@@ -42,7 +36,6 @@ void Swiat::wykonajTure()
 			continue;
 
 		o.akcja();
-
 	}
 	numerTury++;
 	rysujSwiat();
@@ -64,9 +57,10 @@ void Swiat::rysujSwiat()
 			else
 				cout << " ";
 		}
-		cout << "|" << endl;
+		cout << "|\n";
 	}
 	wypiszLog();
+	cout.flush();
 }
 
 void Swiat::dodajOrganizm(Organizm* organizm, int x, int y)
@@ -93,13 +87,24 @@ void Swiat::dodajLog(string komunikat)
 	log.push_back(komunikat);
 }
 
+string Swiat::logToString()
+{
+	string buffer;
+	for (list<string>::iterator it = log.begin(); log.size() > MAX_LOG_SIZE;)
+		log.erase(it++);
+
+	for (list<string>::iterator it = log.begin(); it != log.end(); it++)
+		buffer += *it + "\n";
+	return buffer;
+}
+
 void Swiat::wypiszLog()
 {
 	for (list<string>::iterator it = log.begin(); log.size() > MAX_LOG_SIZE;)
 		log.erase(it++);
 
 	for (list<string>::iterator it = log.begin(); it != log.end(); it++)
-		cout << *it << endl;
+		cout << *it << "\n";
 }
 
 Plansza& Swiat::getPlansza()
@@ -109,4 +114,9 @@ Plansza& Swiat::getPlansza()
 ListaOrganizmow& Swiat::getOrganizmy()
 {
 	return organizmy;
+}
+
+void Swiat::wyczyscEkran()
+{
+	cout << string(100, '\n');
 }

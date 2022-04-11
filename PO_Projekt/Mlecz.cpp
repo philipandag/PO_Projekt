@@ -26,6 +26,12 @@ void Mlecz::rysowanie()
 {
 	cout << ZNAK;
 }
+
+char Mlecz::getZnak()
+{
+	return ZNAK;
+}
+
 void Mlecz::stworzPotomstwo()
 {
 

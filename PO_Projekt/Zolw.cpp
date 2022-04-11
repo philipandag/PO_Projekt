@@ -36,6 +36,11 @@ void Zolw::rysowanie()
 	cout << ZNAK;
 }
 
+char Zolw::getZnak()
+{
+	return ZNAK;
+}
+
 string Zolw::getNazwa() const
 {
 	return "Zolw";

@@ -33,6 +33,11 @@ void CyberOwca::rysowanie()
 	cout << ZNAK;
 }
 
+char CyberOwca::getZnak()
+{
+	return ZNAK;
+}
+
 string CyberOwca::getNazwa() const
 {
 	return "Cyber Owca";

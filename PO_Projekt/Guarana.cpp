@@ -21,12 +21,18 @@ void Guarana::akcja()
 void Guarana::kolizja(Organizm& atakujacy)
 {
 	atakujacy.changeSila(3);
-	this->zyje = false;
+	this->zabij();
 }
 void Guarana::rysowanie()
 {
 	cout << ZNAK;
 }
+
+char Guarana::getZnak()
+{
+	return ZNAK;
+}
+
 void Guarana::stworzPotomstwo()
 {
 

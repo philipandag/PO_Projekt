@@ -76,10 +76,8 @@ void Czlowiek::kolizja(Organizm& atakujacy)
 		if (gotowyNaPotomstwo() && atakujacy.gotowyNaPotomstwo())
 			stworzPotomstwo();
 	}
-	else if (atakujacy.getSila() >= this->sila)
-		zabij();
 	else
-		atakujacy.zabij();
+		walka(atakujacy);
 }
 
 void Czlowiek::stworzPotomstwo()
@@ -88,12 +86,20 @@ void Czlowiek::stworzPotomstwo()
 	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
 		delete potomstwo;
 	else
+	{
 		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
 
 void Czlowiek::rysowanie()
 {
-	cout << "C";
+	cout << ZNAK;
+}
+
+char Czlowiek::getZnak()
+{
+	return ZNAK;
 }
 
 void Czlowiek::resetPotomstwoCooldown()
@@ -108,6 +114,7 @@ bool Czlowiek::specjalnaUmiejetnosc()
 		sila = 10;
 		umiejetnoscCooldown = UMIEJETNOSC_COOLDOWN;
 		swiat.dodajLog("Czlowiek uzywa umiejetnosci Magiczny Eliksir!");
+		cout << "Czlowiek uzywa umiejetnosci Magiczny Eliksir!\n";
 		return true;
 	}
 	cout << "Czlowiek nie moze jeszcze uzyc Magiczny Eliksir przez " << umiejetnoscCooldown << " tur\n";

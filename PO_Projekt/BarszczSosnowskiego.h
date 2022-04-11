@@ -17,6 +17,7 @@ public:
     void potomstwoCooldownWDol() override;
     void stworzPotomstwo() override;
     void rysowanie() override;
+    char getZnak() override;
     string getNazwa() const override;
 };
 

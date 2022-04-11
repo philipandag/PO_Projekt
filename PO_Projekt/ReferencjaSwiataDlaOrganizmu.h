@@ -17,8 +17,8 @@ public:
 	virtual void operator+=(Organizm* organizm) = 0;
 	virtual Organizm& operator[](const list<Organizm*>::iterator& i) = 0; // zwraca organizm pod iteratorem
 	virtual Organizm& operator[](const list<Organizm*>::iterator* i) = 0;
-	virtual ListaOrganizmowRef& operator-=(const list<Organizm*>::iterator& i) = 0; // usuwa organizm pod iteratorem
-	virtual ListaOrganizmowRef& operator-=(const list<Organizm*>::iterator* i) = 0;
+	virtual ListaOrganizmowRef& operator-=(list<Organizm*>::iterator& i) = 0; // usuwa organizm pod iteratorem
+	virtual ListaOrganizmowRef& operator-=(list<Organizm*>::iterator* i) = 0;
 };
 
 class PlanszaRef

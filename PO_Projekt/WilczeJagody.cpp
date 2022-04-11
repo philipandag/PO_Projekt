@@ -30,6 +30,11 @@ void WilczeJagody::rysowanie()
 	cout << ZNAK;
 }
 
+char WilczeJagody::getZnak()
+{
+	return ZNAK;
+}
+
 void WilczeJagody::stworzPotomstwo()
 {
 

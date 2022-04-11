@@ -22,6 +22,7 @@ public:
 	void kolizja(Organizm& atakujacy) override;
 	void stworzPotomstwo() override;
 	void rysowanie() override;
+	char getZnak() override;
 	void resetPotomstwoCooldown() override;
 	string getNazwa() const override;
 	void umiejetnoscCooldownWDol();

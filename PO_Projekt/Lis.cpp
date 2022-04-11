@@ -15,28 +15,26 @@ Lis::~Lis()
 
 void Lis::akcja()
 {
-	Kierunek ruch;
-	int x, y;
+	potomstwoCooldownWDol();
+
+	Kierunek k;
+	int newX, newY;
 	int proby = 0;
 	bool znaleziono = false;
-	ruch.losuj();
-	do 
+	k.losuj();
+	for(int i = 0; !znaleziono && i < Kierunek::ILOSC_KIERUNKOW; i++)
 	{
-		ruch++;
+		k++;
 		proby++;
-		x = this->x + ruch.getDx();
-		y = this->y + ruch.getDy();
-		PlanszaRef& plansza = swiat.getPlansza();
-		ListaOrganizmowRef& organizmy = swiat.getOrganizmy();
-		if (plansza.naPlanszy(x, y))
-			if (plansza[x][y] == nullptr || organizmy[plansza[x][y]].getSila() <= this->sila)
+		newX = this->x + k.getDx();
+		newY = this->y + k.getDy();
+		if (plansza.naPlanszy(newX, newY))
+			if (plansza[newX][newY] == nullptr || organizmy[plansza[newX][newY]].getSila() <= this->sila)
 				znaleziono = true;
-	} while (!znaleziono && proby < 10);
+	}
 
 	if(znaleziono)
-		przemieszczenie(ruch.getDx(), ruch.getDy());
-
-	potomstwoCooldownWDol();
+		przemieszczenie(newX, newY);
 }
 
 void Lis::kolizja(Organizm& atakujacy)
@@ -44,7 +42,7 @@ void Lis::kolizja(Organizm& atakujacy)
 	if (instanceof<Lis>(atakujacy))
 	{
 		if (gotowyNaPotomstwo() && atakujacy.gotowyNaPotomstwo())
-			atakujacy.toggleOczekujacePotomstwo();
+			stworzPotomstwo();
 	}
 	else
 		walka(atakujacy);
@@ -52,12 +50,24 @@ void Lis::kolizja(Organizm& atakujacy)
 
 void Lis::stworzPotomstwo()
 {
-
+	Lis* potomstwo = new Lis(swiat);
+	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
 
 void Lis::rysowanie()
 {
 	cout << ZNAK;
+}
+
+char Lis::getZnak()
+{
+	return ZNAK;
 }
 
 string Lis::getNazwa() const

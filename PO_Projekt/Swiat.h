@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <string>
+#include <conio.h>
 #include "Organizm.h"
 #include "Czlowiek.h"
 #include "ListaOrganizmow.h"
@@ -30,9 +31,9 @@ class Swiat:
 
 	string getNapisTury() const;
 	void wypiszLog();
-	bool grabarz(ListaOrganizmow::iterator i); // usuwa organizm jesli jest martwy, zwraca 1 gdy to sie stalo, 0 gdy nie byl martwy
-	void narodziny(Organizm& rodzic);
-	void skutkiKolizji(Organizm& atakujacy, Organizm& atakowany, int oldX, int oldY, int x, int y, ListaOrganizmow::iterator& i);
+	void wyczyscEkran();
+	string logToString();
+	bool grabarz(ListaOrganizmow::iterator& i); // usuwa organizm jesli jest martwy, zwraca 1 gdy to sie stalo, 0 gdy nie byl martwy
 
 public:
 	Plansza plansza;

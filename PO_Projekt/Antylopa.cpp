@@ -15,7 +15,14 @@ Antylopa::~Antylopa()
 
 void Antylopa::akcja()
 {
+	potomstwoCooldownWDol();
+	Kierunek k;
+	k.losuj();
 
+	int newX = x + k.getDx();
+	int newY = y - k.getDy();
+
+	przemieszczenie(newX, newY);
 }
 
 void Antylopa::kolizja(Organizm& atakujacy)
@@ -31,6 +38,11 @@ void Antylopa::stworzPotomstwo()
 void Antylopa::rysowanie()
 {
 	cout << ZNAK;
+}
+
+char Antylopa::getZnak()
+{
+	return ZNAK;
 }
 
 string Antylopa::getNazwa() const

@@ -15,21 +15,14 @@ Owca::~Owca()
 
 void Owca::akcja()
 {
-	PlanszaRef& plansza = swiat.getPlansza();
-	ListaOrganizmowRef& organizmy = swiat.getOrganizmy();
+	potomstwoCooldownWDol();
 	Kierunek k;
 	k.losuj();
 
 	int newX = x + k.getDx();
-	int newY = y = k.getDy();
+	int newY = y - k.getDy();
 
-	if (plansza.naPlanszy(x, y))
-	{
-		przemieszczenie(k.getDx(), k.getDy());
-		if (!plansza.wolne(x, y))
-			organizmy[plansza[x][y]].kolizja(*this);
-	}
-
+	przemieszczenie(newX, newY);
 }
 
 void Owca::kolizja(Organizm& atakujacy)
@@ -37,7 +30,7 @@ void Owca::kolizja(Organizm& atakujacy)
 	if (instanceof<Owca>(atakujacy))
 	{
 		if (gotowyNaPotomstwo() && atakujacy.gotowyNaPotomstwo())
-			atakujacy.toggleOczekujacePotomstwo();
+			stworzPotomstwo();
 	}
 	else
 		walka(atakujacy);
@@ -45,12 +38,24 @@ void Owca::kolizja(Organizm& atakujacy)
 
 void Owca::stworzPotomstwo()
 {
-
+	Owca* potomstwo = new Owca(swiat);
+	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
 
 void Owca::rysowanie()
 {
 	cout << ZNAK;
+}
+
+char Owca::getZnak()
+{
+	return ZNAK;
 }
 
 string Owca::getNazwa() const

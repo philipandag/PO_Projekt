@@ -19,8 +19,8 @@ public:
 	void operator+=(Organizm* organizm) override;
 	Organizm& operator[](const ListaOrganizmow::iterator& i) override; // zwraca organizm pod iteratorem
 	Organizm& operator[](const ListaOrganizmow::iterator* i) override;
-	ListaOrganizmow& operator-=(const ListaOrganizmow::iterator& i) override; // usuwa organizm pod iteratorem
-	ListaOrganizmow& operator-=(const ListaOrganizmow::iterator* i) override;
+	ListaOrganizmow& operator-=(ListaOrganizmow::iterator& i) override; // usuwa organizm pod iteratorem
+	ListaOrganizmow& operator-=(ListaOrganizmow::iterator* i) override;
 
 };
 

@@ -15,6 +15,7 @@ public:
     void akcja() override;
     void kolizja(Organizm& atakujacy) override;
     void rysowanie() override;
+    char getZnak() override;
     void stworzPotomstwo() override;
     void resetPotomstwoCooldown() override;
     string getNazwa() const override;

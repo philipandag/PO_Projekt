@@ -39,6 +39,7 @@ public:
 	virtual void kolizja(Organizm& atakujacy) = 0;
 	virtual void stworzPotomstwo() = 0;
 	virtual void rysowanie() = 0;
+	virtual char getZnak() = 0;
 	virtual string getNazwa() const = 0;
 	virtual void potomstwoCooldownWDol() = 0;
 	virtual void resetPotomstwoCooldown() = 0;

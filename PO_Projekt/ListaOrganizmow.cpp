@@ -64,16 +64,20 @@ Organizm& ListaOrganizmow::operator[](const ListaOrganizmow::iterator& i)
 	return **i;
 }
 
-ListaOrganizmow& ListaOrganizmow::operator-=(const ListaOrganizmow::iterator& i)
+ListaOrganizmow& ListaOrganizmow::operator-=(ListaOrganizmow::iterator& i)
 {
-	erase(i);
-	delete *i;
+	ListaOrganizmow::iterator copy = i;
+	ListaOrganizmow::iterator it = i;
+	if (++copy == end())
+		i--;
+	else
+		i++;
+	delete (*it);
+	erase(it);
 	return *this;
 }
 
-ListaOrganizmow& ListaOrganizmow::operator-=(const ListaOrganizmow::iterator* i)
+ListaOrganizmow& ListaOrganizmow::operator-=(ListaOrganizmow::iterator* i)
 {
-	erase(*i);
-	delete **i;
-	return *this;
+	return this->operator-=(*i);
 }
