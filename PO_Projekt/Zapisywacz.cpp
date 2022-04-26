@@ -48,7 +48,7 @@ void Zapisywacz::wczytaj()
 			cout << "Bledna nazwa zwierzecia, uszkodzony plik zapisu w linijce " << linia << endl;
 			exit(-1);
 		}
-		 
+		*o << plik;
 	}
 	plik.close();
 	swiat->rysujSwiat();

@@ -46,7 +46,7 @@ char CyberOwca::getZnak()
 
 string CyberOwca::getNazwa() const
 {
-	return "Cyber Owca";
+	return "CyberOwca";
 }
 
 void CyberOwca::resetPotomstwoCooldown()

@@ -153,13 +153,13 @@
     <ClInclude Include="Organizm.h" />
     <ClInclude Include="Owca.h" />
     <ClInclude Include="Plansza.h" />
-    <ClInclude Include="WirtualneReferencje.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Roslina.h" />
     <ClInclude Include="Swiat.h" />
     <ClInclude Include="Trawa.h" />
     <ClInclude Include="WilczeJagody.h" />
     <ClInclude Include="Wilk.h" />
+    <ClInclude Include="WirtualneReferencje.h" />
     <ClInclude Include="Zapisywacz.h" />
     <ClInclude Include="Zolw.h" />
     <ClInclude Include="Zwierze.h" />
@@ -185,9 +185,13 @@
     <ClCompile Include="Trawa.cpp" />
     <ClCompile Include="WilczeJagody.cpp" />
     <ClCompile Include="Wilk.cpp" />
+    <ClCompile Include="WirtualneReferencje.cpp" />
     <ClCompile Include="Zapisywacz.cpp" />
     <ClCompile Include="Zolw.cpp" />
     <ClCompile Include="Zwierze.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="zapis.zwierzaki" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

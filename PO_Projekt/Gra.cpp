@@ -15,7 +15,7 @@ void Gra::ustawDomyslnySwiat()
 	swiat = new Swiat(20, 20);
 	zapisywacz = new Zapisywacz(&swiat);
 
-	swiat->dodajOrganizm(new Czlowiek(*swiat), 1, 1);
+	//swiat->dodajOrganizm(new Czlowiek(*swiat), 1, 1);
 	swiat->dodajOrganizm(new Owca(*swiat), 2, 3);
 	swiat->dodajOrganizm(new Owca(*swiat), 2, 2);
 	swiat->dodajOrganizm(new Wilk(*swiat), 5, 6);
