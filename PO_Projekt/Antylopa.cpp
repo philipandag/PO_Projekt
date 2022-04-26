@@ -1,17 +1,15 @@
 #include "Antylopa.h"
 
-Antylopa::Antylopa(int x, int y, ReferencjaSwiata& swiat) :
+Antylopa::Antylopa(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Zwierze(sila == -1 ? SILA : sila, INICJATYWA, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, x, y, swiat)
+{}
+Antylopa::Antylopa(int x, int y, SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat)
 {}
-
-Antylopa::Antylopa(ReferencjaSwiata& swiat) :
+Antylopa::Antylopa(SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat)
 {}
 
-Antylopa::~Antylopa()
-{
-	cout << "Antylopa papa" << endl;
-}
 
 void Antylopa::akcja()
 {
@@ -19,20 +17,39 @@ void Antylopa::akcja()
 	Kierunek k;
 	k.losuj();
 
-	int newX = x + k.getDx();
-	int newY = y - k.getDy();
+	int newX = x + 2 * k.getDx();
+	int newY = y + 2 * k.getDy();
 
 	przemieszczenie(newX, newY);
 }
 
 void Antylopa::kolizja(Organizm& atakujacy)
 {
-
+	if (instanceof<Antylopa>(atakujacy))
+	{
+		if (gotowyNaPotomstwo() && atakujacy.gotowyNaPotomstwo())
+			stworzPotomstwo();
+	}
+	else if(rand() % 2 == 0)
+	{
+		walka(atakujacy);
+	}
+	else
+	{
+		sprobujPrzemiescicWOkolicy(x, y);
+	}
 }
 
 void Antylopa::stworzPotomstwo()
 {
-
+	Antylopa* potomstwo = new Antylopa(swiat);
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
 
 void Antylopa::rysowanie()

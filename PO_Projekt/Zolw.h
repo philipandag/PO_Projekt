@@ -10,9 +10,9 @@ class Zolw :
 	static const char ZNAK = 'Z';
 
 public:
-	Zolw(int x, int y, ReferencjaSwiata& swiat);
-	Zolw(ReferencjaSwiata& swiat);
-	~Zolw();
+	Zolw(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+	Zolw(int x, int y, SwiatRef& swiat);
+	Zolw(SwiatRef& swiat);
 	void akcja() override;
 	void kolizja(Organizm& atakujacy) override;
 	void rysowanie() override;

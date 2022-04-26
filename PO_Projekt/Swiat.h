@@ -7,7 +7,7 @@
 #include "ListaOrganizmow.h"
 #include "Plansza.h"
 #include "Kierunek.h"
-#include "ReferencjaSwiataDlaOrganizmu.h"
+#include "WirtualneReferencje.h"
 
 using namespace std;
 
@@ -20,12 +20,13 @@ struct OrganizmPointerCompare
 };
 
 class Swiat:
-	public ReferencjaSwiata
+	public SwiatRef
 {
+	friend class Zapisywacz;
 	static const int MAX_LOG_SIZE = 10;
 
 	ListaOrganizmow organizmy;
-
+	Plansza plansza;
 	unsigned int numerTury;
 	list<string> log;
 
@@ -36,9 +37,8 @@ class Swiat:
 	bool grabarz(ListaOrganizmow::iterator& i); // usuwa organizm jesli jest martwy, zwraca 1 gdy to sie stalo, 0 gdy nie byl martwy
 
 public:
-	Plansza plansza;
 	Swiat(int xSize, int ySize);
-	void wykonajTure();
+	bool wykonajTure();
 	void rysujSwiat();
 
 	void dodajOrganizm(Organizm* organizm, int x, int y);

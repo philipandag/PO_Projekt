@@ -1,28 +1,21 @@
 #include "WilczeJagody.h"
 
-const double WilczeJagody::POTOMSTWO_SZANSA = 0.3;
+const double WilczeJagody::POTOMSTWO_SZANSA = 0.2;
 
-WilczeJagody::WilczeJagody(int x, int y, ReferencjaSwiata& swiat):
-	Roslina(SILA, POTOMSTWO_COOLDOWN, x, y, swiat)
+WilczeJagody::WilczeJagody(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Roslina(sila == -1 ? SILA : sila, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, POTOMSTWO_SZANSA, x, y, swiat)
 {}
-WilczeJagody::WilczeJagody(ReferencjaSwiata& swiat) :
-	Roslina(SILA, POTOMSTWO_COOLDOWN, 0, 0, swiat)
+WilczeJagody::WilczeJagody(int x, int y, SwiatRef& swiat):
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, x, y, swiat)
 {}
-
-WilczeJagody::~WilczeJagody()
-{
-	cout << "WilczeJagody Papa" << endl;
-}
-
-void WilczeJagody::akcja()
-{
-
-}
+WilczeJagody::WilczeJagody(SwiatRef& swiat) :
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, 0, 0, swiat)
+{}
 
 void WilczeJagody::kolizja(Organizm& atakujacy)
 {
+	zabij();
 	atakujacy.zabij();
-	this->zyje = false;
 }
 
 void WilczeJagody::rysowanie()
@@ -37,7 +30,14 @@ char WilczeJagody::getZnak()
 
 void WilczeJagody::stworzPotomstwo()
 {
-
+	WilczeJagody* potomstwo = new WilczeJagody(swiat);
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
 
 string WilczeJagody::getNazwa() const
@@ -45,8 +45,7 @@ string WilczeJagody::getNazwa() const
 	return "WilczeJagody";
 }
 
-void WilczeJagody::potomstwoCooldownWDol()
+void WilczeJagody::resetPotomstwoCooldown()
 {
-	if (POTOMSTWO_SZANSA * 1000 < rand() % 1000)
-		potomstwoCooldown = 0;
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
 }

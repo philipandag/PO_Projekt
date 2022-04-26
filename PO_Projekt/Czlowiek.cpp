@@ -1,19 +1,21 @@
 #include "Czlowiek.h"
 
-Czlowiek::Czlowiek(int x, int y, ReferencjaSwiata& swiat) :
+Czlowiek::Czlowiek(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Zwierze(sila == -1 ? SILA : sila, INICJATYWA, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, x, y, swiat),
+	umiejetnoscCooldown(0),
+	dodatkowaSila(0)
+{}
+Czlowiek::Czlowiek(int x, int y, SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat),
-	umiejetnoscCooldown(UMIEJETNOSC_COOLDOWN)
+	umiejetnoscCooldown(0),
+	dodatkowaSila(0)
 {}
-
-Czlowiek::Czlowiek(ReferencjaSwiata& swiat) :
+Czlowiek::Czlowiek(SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat),
-	umiejetnoscCooldown(UMIEJETNOSC_COOLDOWN)
+	umiejetnoscCooldown(0),
+	dodatkowaSila(0)
 {}
 
-Czlowiek::~Czlowiek()
-{
-	cout << "Czlowiek Papa" << endl;
-}
 
 string Czlowiek::getNazwa() const
 {
@@ -22,9 +24,13 @@ string Czlowiek::getNazwa() const
 
 void Czlowiek::umiejetnoscCooldownWDol()
 {
-	umiejetnoscCooldown > 0 ? --umiejetnoscCooldown : NULL;
-	if (sila > SILA)
+	if (umiejetnoscCooldown > 0)
+		--umiejetnoscCooldown;
+	if (dodatkowaSila > 0)
+	{
+		dodatkowaSila--;
 		sila--;
+	}
 }
 
 void Czlowiek::akcja()
@@ -32,7 +38,7 @@ void Czlowiek::akcja()
 	potomstwoCooldownWDol();
 	umiejetnoscCooldownWDol();
 
-	cout << "Czlowiek czeka na ruch\n";
+	cout << "Czlowiek czeka na ruch (strzalki), sila: " << sila <<"\n";
 	char ruch;
 	Kierunek k;
 
@@ -41,20 +47,16 @@ void Czlowiek::akcja()
 		ruch = _getch();
 		switch (ruch)
 		{
-		case 'w':
-		case 'W':
+		case KEY_UP:
 			k = Kierunek::N;
 			break;
-		case 's':
-		case 'S':
+		case KEY_DOWN:
 			k = Kierunek::S;
 			break;
-		case 'a':
-		case 'A':
+		case KEY_LEFT:
 			k = Kierunek::W;
 			break;
-		case 'd':
-		case 'D':
+		case KEY_RIGHT:
 			k = Kierunek::E;
 			break;
 		case ' ':
@@ -83,7 +85,7 @@ void Czlowiek::kolizja(Organizm& atakujacy)
 void Czlowiek::stworzPotomstwo()
 {
 	Czlowiek* potomstwo = new Czlowiek(swiat);
-	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
 		delete potomstwo;
 	else
 	{
@@ -111,12 +113,33 @@ bool Czlowiek::specjalnaUmiejetnosc()
 {
 	if (umiejetnoscCooldown == 0)
 	{
-		sila = 10;
+		dodatkowaSila = sila < UMIEJETNOSC_MAX_BONUS ? UMIEJETNOSC_MAX_BONUS - sila : 0;
+		sila += dodatkowaSila;
 		umiejetnoscCooldown = UMIEJETNOSC_COOLDOWN;
-		swiat.dodajLog("Czlowiek uzywa umiejetnosci Magiczny Eliksir!");
-		cout << "Czlowiek uzywa umiejetnosci Magiczny Eliksir!\n";
+		swiat.dodajLog("Czlowiek uzywa umiejetnosci Magiczny Eliksir! Sila wzrasta o " + dodatkowaSila);
+		cout << "Czlowiek uzywa umiejetnosci Magiczny Eliksir! Sila wzrasta o " << dodatkowaSila << endl;
 		return true;
 	}
 	cout << "Czlowiek nie moze jeszcze uzyc Magiczny Eliksir przez " << umiejetnoscCooldown << " tur\n";
 	return false;
+}
+
+string Czlowiek::toString()
+{
+	string reprezentacja = Zwierze::toString();
+	reprezentacja.append(" " + to_string(umiejetnoscCooldown));
+	reprezentacja.append(" " + to_string(dodatkowaSila));
+	return reprezentacja;
+}
+
+void Czlowiek::operator<<(ifstream& f)
+{
+	Zwierze::operator<<(f);
+	int uC = -1, dS = -1;
+	if (f >> uC && uC >= 0)
+		umiejetnoscCooldown = uC;
+	if (f >> dS && dS >= 0)
+	{
+		dodatkowaSila = dS;
+	}
 }

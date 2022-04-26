@@ -9,9 +9,9 @@ class Antylopa :
     static const char ZNAK = 'A';
 
 public:
-    Antylopa(int x, int y, ReferencjaSwiata& swiat);
-    Antylopa(ReferencjaSwiata& swiat);
-    ~Antylopa();
+    Antylopa(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+    Antylopa(int x, int y, SwiatRef& swiat);
+    Antylopa(SwiatRef& swiat);
     void akcja() override;
     void kolizja(Organizm& atakujacy) override;
     void rysowanie() override;

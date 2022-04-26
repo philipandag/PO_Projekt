@@ -1,6 +1,6 @@
 #include "Organizm.h"
 
-Organizm::Organizm(int sila, int inicjatywa, int potomstwoCooldown, int x, int y, ReferencjaSwiata& swiat) :
+Organizm::Organizm(int sila, int inicjatywa, int potomstwoCooldown, int x, int y, SwiatRef& swiat) :
 	sila(sila),
 	inicjatywa(inicjatywa),
 	x(x),
@@ -14,11 +14,11 @@ Organizm::Organizm(int sila, int inicjatywa, int potomstwoCooldown, int x, int y
 	iterator(nullptr)
 {}
 
-Organizm::Organizm(int sila, int inicjatywa, int potomstwoCooldown, ReferencjaSwiata& swiat) :
+Organizm::Organizm(int sila, int inicjatywa, int potomstwoCooldown, SwiatRef& swiat) :
 	Organizm(sila, inicjatywa, potomstwoCooldown, x, y, swiat)
 {}
 
-Organizm::Organizm(int sila, int inicjatywa, ReferencjaSwiata& swiat):
+Organizm::Organizm(int sila, int inicjatywa, SwiatRef& swiat):
 	Organizm(sila, inicjatywa, -1, x, y, swiat)
 {}
 
@@ -53,7 +53,38 @@ bool Organizm::maOczekujacePotomstwo() const
 	return oczekujacePotomstwo;
 }
 
+bool Organizm::sprobujPrzemiescicWOkolicy(int x, int y)
+{
+	int oldX = this->x, oldY= this->y;
+	if (sprobujPostawicWOkolicy(x, y))
+	{
+		plansza.unset(oldX, oldY);
+		return true;
+	}
+	return false;
+}
+
 bool Organizm::sprobujPostawicWOkolicy(int x, int y)
+{
+	Kierunek k;
+	k.losuj();
+	int newX, newY;
+	for (int i = 0; i < Kierunek::ILOSC_KIERUNKOW; i++)
+	{
+		k++;
+		newX = x + k.getDx();
+		newY = y + k.getDy();
+		if (plansza.naPlanszy(newX, newY) && plansza.wolne(newX, newY))
+		{
+			plansza.set(newX, newY, this->iterator);
+			this->setPozycja(newX, newY);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Organizm::sprobujDodacWOkolicy(int x, int y)
 {
 	Kierunek k;
 	k.losuj();
@@ -89,6 +120,11 @@ int Organizm::getInicjatywa() const
 	return this->inicjatywa;
 }
 
+int Organizm::getPotomstwoCooldown() const
+{
+	return this->potomstwoCooldown;
+}
+
 bool Organizm::operator<(const Organizm& other) const
 {
 	return this->inicjatywa < other.inicjatywa;
@@ -97,6 +133,12 @@ bool Organizm::operator<(const Organizm& other) const
 bool Organizm::operator>(const Organizm& other) const
 {
 	return this->inicjatywa > other.inicjatywa;
+}
+
+void Organizm::potomstwoCooldownWDol()
+{
+	if (potomstwoCooldown > 0)
+		potomstwoCooldown--;
 }
 
 bool Organizm::gotowyNaPotomstwo() const
@@ -127,4 +169,19 @@ string Organizm::raportZRuchu() const
 string Organizm::raportZNarodzin() const
 {
 	return " - Na swiat przychodzi " + getNazwa() + " na (" + to_string(getX()) + ", " + to_string(getY()) + ")!";
+}
+
+string Organizm::toString()
+{
+	string reprezentacja;
+	reprezentacja.append(getNazwa());
+	reprezentacja.append(" " + to_string(x));
+	reprezentacja.append(" " + to_string(y));
+	return reprezentacja;
+}
+
+void Organizm::operator<<(ifstream& f)
+{
+	f >> x >> y;
+	swiat.dodajOrganizm(this, x, y);
 }

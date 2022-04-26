@@ -1,27 +1,34 @@
 #include "Mlecz.h"
 
-const double Mlecz::POTOMSTWO_SZANSA = 1;
+const double Mlecz::POTOMSTWO_SZANSA = 0.2;
 
-Mlecz::Mlecz(int x, int y, ReferencjaSwiata& swiat) :
-	Roslina(SILA, POTOMSTWO_COOLDOWN, x, y, swiat)
+Mlecz::Mlecz(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Roslina(sila == -1 ? SILA : sila, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, POTOMSTWO_SZANSA, x, y, swiat)
 {}
-Mlecz::Mlecz(ReferencjaSwiata& swiat) :
-	Roslina(SILA, POTOMSTWO_COOLDOWN, 0, 0, swiat)
+Mlecz::Mlecz(int x, int y, SwiatRef& swiat) :
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, x, y, swiat)
 {}
-
-Mlecz::~Mlecz()
-{
-	cout << "Mlecz Papa" << endl;
-}
+Mlecz::Mlecz(SwiatRef& swiat) :
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, 0, 0, swiat)
+{}
 
 void Mlecz::akcja()
 {
-
+	bool udaloSie = false;
+	for (int i = 0; i < 3; i++)
+	{
+		if (gotowyNaPotomstwo())
+		{
+			stworzPotomstwo();
+			udaloSie = true;
+		}
+	}
+	if (udaloSie)
+		resetPotomstwoCooldown();
+	else
+		potomstwoCooldownWDol();
 }
-void Mlecz::kolizja(Organizm& atakujacy)
-{
 
-}
 void Mlecz::rysowanie()
 {
 	cout << ZNAK;
@@ -34,16 +41,21 @@ char Mlecz::getZnak()
 
 void Mlecz::stworzPotomstwo()
 {
-
+	Mlecz* potomstwo = new Mlecz(swiat);
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
+
 string Mlecz::getNazwa() const
 {
 	return "Mlecz";
 }
 
-void Mlecz::potomstwoCooldownWDol()
+void Mlecz::resetPotomstwoCooldown()
 {
-	if (POTOMSTWO_SZANSA * 1000 < rand() % 1000)
-		potomstwoCooldown = 0;
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
 }
-

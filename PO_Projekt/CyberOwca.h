@@ -10,10 +10,9 @@ class CyberOwca :
     static const char ZNAK = '#';
 
 public:
-    CyberOwca(int x, int y, ReferencjaSwiata& swiat);
-    CyberOwca(ReferencjaSwiata& swiat);
-    ~CyberOwca();
-    void akcja() override;
+    CyberOwca(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+    CyberOwca(int x, int y, SwiatRef& swiat);
+    CyberOwca(SwiatRef& swiat);
     void kolizja(Organizm& atakujacy) override;
     void rysowanie() override;
     char getZnak() override;

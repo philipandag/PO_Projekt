@@ -1,29 +1,14 @@
 #include "Owca.h"
 
-Owca::Owca(int x, int y, ReferencjaSwiata& swiat) :
+Owca::Owca(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Zwierze(sila == -1 ? SILA : sila, INICJATYWA, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, x, y, swiat)
+{}
+Owca::Owca(int x, int y, SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat)
 {}
-
-Owca::Owca(ReferencjaSwiata& swiat) :
+Owca::Owca(SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat)
 {}
-
-Owca::~Owca()
-{
-	cout << "Owca Papa" << endl;
-}
-
-void Owca::akcja()
-{
-	potomstwoCooldownWDol();
-	Kierunek k;
-	k.losuj();
-
-	int newX = x + k.getDx();
-	int newY = y - k.getDy();
-
-	przemieszczenie(newX, newY);
-}
 
 void Owca::kolizja(Organizm& atakujacy)
 {
@@ -39,7 +24,7 @@ void Owca::kolizja(Organizm& atakujacy)
 void Owca::stworzPotomstwo()
 {
 	Owca* potomstwo = new Owca(swiat);
-	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
 		delete potomstwo;
 	else
 	{

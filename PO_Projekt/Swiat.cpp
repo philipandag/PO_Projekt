@@ -21,14 +21,15 @@ bool Swiat::grabarz(ListaOrganizmow::iterator& i)
 	return false;
 }
 
-void Swiat::wykonajTure()
+bool Swiat::wykonajTure()
 {
 	log.push_back(getNapisTury());
-
+	bool koniecGry = false;
 	for (ListaOrganizmow::iterator i = organizmy.begin(); i != organizmy.end(); i++)
 	{
-		rysujSwiat();
-		//Sleep(100);
+		koniecGry = true;
+		if(instanceof<Czlowiek>(**i))
+			rysujSwiat();
 
 		Organizm& o = organizmy[i];
 
@@ -37,14 +38,16 @@ void Swiat::wykonajTure()
 
 		o.akcja();
 	}
-	numerTury++;
 	rysujSwiat();
+	cout << "Koniec tury " << numerTury << endl;
+	numerTury++;
+	return koniecGry;
 }
 
 void Swiat::rysujSwiat()
 {
 	system("cls");
-	cout << "Tura " << getNapisTury() << "\n\tSwiat:\n";
+	cout << getNapisTury() << "\n\tSwiat:\n";
 	for (int y = 0; y < plansza.getYSize(); y++)
 	{
 		cout << "|";

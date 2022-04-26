@@ -10,10 +10,9 @@ class Owca :
 	static const char ZNAK = 'O';
 
 public:
-    Owca(int x, int y, ReferencjaSwiata& swiat);
-	Owca(ReferencjaSwiata& swiat);
-	~Owca();
-	void akcja() override;
+    Owca(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+    Owca(int x, int y, SwiatRef& swiat);
+	Owca(SwiatRef& swiat);
 	void kolizja(Organizm& atakujacy) override;
 	void stworzPotomstwo() override;
 	void rysowanie() override;

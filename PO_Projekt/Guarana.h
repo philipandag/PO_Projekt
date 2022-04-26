@@ -5,15 +5,14 @@ class Guarana :
 {
     static const int SILA = 0;
     static const double POTOMSTWO_SZANSA;
-    static const int POTOMSTWO_COOLDOWN = 2;
+    static const int POTOMSTWO_COOLDOWN = 5;
     static const char ZNAK = 'G';
 public:
-    Guarana(int x, int y, ReferencjaSwiata& swiat);
-    Guarana(ReferencjaSwiata& swiat);
-    ~Guarana();
-    void akcja() override;
+    Guarana(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+    Guarana(int x, int y, SwiatRef& swiat);
+    Guarana(SwiatRef& swiat);
     void kolizja(Organizm& atakujacy) override;
-    void potomstwoCooldownWDol() override;
+    void resetPotomstwoCooldown() override;
     void stworzPotomstwo() override;
     void rysowanie() override;
     char getZnak() override;

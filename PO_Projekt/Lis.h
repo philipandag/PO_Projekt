@@ -10,9 +10,9 @@ class Lis :
 	static const char ZNAK = 'L';
 
 public:
-    Lis(int x, int y, ReferencjaSwiata& swiat);
-	Lis(ReferencjaSwiata& swiat);
-	~Lis();
+    Lis(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+    Lis(int x, int y, SwiatRef& swiat);
+	Lis(SwiatRef& swiat);
 	void akcja() override;
 	void kolizja(Organizm& atakujacy) override;
 	void stworzPotomstwo() override;

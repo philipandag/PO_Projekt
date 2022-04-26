@@ -2,27 +2,22 @@
 
 const double Guarana::POTOMSTWO_SZANSA = 0.5;
 
-Guarana::Guarana(int x, int y, ReferencjaSwiata& swiat) :
-	Roslina(SILA, POTOMSTWO_COOLDOWN, x, y, swiat)
+Guarana::Guarana(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Roslina(sila == -1 ? SILA : sila, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, POTOMSTWO_SZANSA, x, y, swiat)
 {}
-Guarana::Guarana(ReferencjaSwiata& swiat) :
-	Roslina(SILA, POTOMSTWO_COOLDOWN, 0, 0, swiat)
+Guarana::Guarana(int x, int y, SwiatRef& swiat) :
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, x, y, swiat)
+{}
+Guarana::Guarana(SwiatRef& swiat) :
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, 0, 0, swiat)
 {}
 
-Guarana::~Guarana()
-{
-	cout << "Guarana Papa" << endl;
-}
-
-void Guarana::akcja()
-{
-
-}
 void Guarana::kolizja(Organizm& atakujacy)
 {
 	atakujacy.changeSila(3);
-	this->zabij();
+	zabij();
 }
+
 void Guarana::rysowanie()
 {
 	cout << ZNAK;
@@ -35,15 +30,22 @@ char Guarana::getZnak()
 
 void Guarana::stworzPotomstwo()
 {
-
+	Guarana* potomstwo = new Guarana(swiat);
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
+
 string Guarana::getNazwa() const
 {
 	return "Guarana";
 }
 
-void Guarana::potomstwoCooldownWDol()
+void Guarana::resetPotomstwoCooldown()
 {
-	if (POTOMSTWO_SZANSA * 1000 < rand() % 1000)
-		potomstwoCooldown = 0;
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
 }

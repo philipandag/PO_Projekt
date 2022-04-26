@@ -3,12 +3,11 @@
 #include "Kierunek.h"
 #include <list>
 #include <iostream>
+#include <fstream>
 #include <random>
 #include <string>
-#include "ReferencjaSwiataDlaOrganizmu.h"
+#include "WirtualneReferencje.h"
 using namespace std;
-
-
 
 
 class Organizm
@@ -22,7 +21,7 @@ protected:
 	bool zyje;
 	int potomstwoCooldown;
 	bool oczekujacePotomstwo;
-	ReferencjaSwiata& swiat;
+	SwiatRef& swiat;
 	PlanszaRef& plansza;
 	ListaOrganizmowRef& organizmy;
 
@@ -31,9 +30,9 @@ protected:
 public:
 	ListaOrganizmowRef::iterator* iterator;
 
-	Organizm(int sila, int inicjatywa, int potomstwoCooldown, int x, int y, ReferencjaSwiata& swiat);
-	Organizm(int sila, int inicjatywa, int potomstwoCooldown, ReferencjaSwiata& swiat);
-	Organizm(int sila, int inicjatywa, ReferencjaSwiata& swiat);
+	Organizm(int sila, int inicjatywa, int potomstwoCooldown, int x, int y, SwiatRef& swiat);
+	Organizm(int sila, int inicjatywa, int potomstwoCooldown, SwiatRef& swiat);
+	Organizm(int sila, int inicjatywa, SwiatRef& swiat);
 
 	virtual void akcja() = 0;
 	virtual void kolizja(Organizm& atakujacy) = 0;
@@ -41,8 +40,9 @@ public:
 	virtual void rysowanie() = 0;
 	virtual char getZnak() = 0;
 	virtual string getNazwa() const = 0;
-	virtual void potomstwoCooldownWDol() = 0;
+	virtual void potomstwoCooldownWDol();
 	virtual void resetPotomstwoCooldown() = 0;
+	virtual void operator<<(ifstream& f);
 
 	Organizm& setPozycja(int x, int y);
 	void changeSila(int dSila);
@@ -54,11 +54,15 @@ public:
 	void zabij();
 	int getSila() const;
 	int getInicjatywa() const;
-	bool gotowyNaPotomstwo() const;
+	int getPotomstwoCooldown() const;
+	virtual bool gotowyNaPotomstwo() const;
 	bool maOczekujacePotomstwo() const;
 	bool sprobujPostawicWOkolicy(int x, int y);
+	bool sprobujDodacWOkolicy(int x, int y);
+	bool sprobujPrzemiescicWOkolicy(int x, int y);
 	bool operator<(const Organizm& other) const;
 	bool operator>(const Organizm& other) const;
+	virtual string toString();
 
 	string raportZSmierci() const;
 	string raportZKolizji(const Organizm& ofiara) const;

@@ -1,1 +1,0 @@
-#include "ReferencjaSwiataDlaOrganizmu.h"

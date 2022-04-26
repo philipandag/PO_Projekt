@@ -50,10 +50,7 @@ bool Plansza::wolne(int x, int y) const
 
 void Plansza::unset(int x, int y)
 {
-	if (plansza[x][y] != nullptr)
-	{
-		plansza[x][y] = nullptr;
-	}
+	plansza[x][y] = nullptr;
 }
 
 void Plansza::set(int x, int y, ListaOrganizmow::iterator it)

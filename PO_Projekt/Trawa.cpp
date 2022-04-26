@@ -1,32 +1,17 @@
 #include "Trawa.h"
 
-const double Trawa::POTOMSTWO_SZANSA = 0.1;
+const double Trawa::POTOMSTWO_SZANSA = 0.3;
 
-Trawa::Trawa(int x, int y, ReferencjaSwiata& swiat) :
-	Roslina(SILA, POTOMSTWO_COOLDOWN, x, y, swiat)
+Trawa::Trawa(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Roslina(sila == -1 ? SILA : sila, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, POTOMSTWO_SZANSA, x, y, swiat)
 {}
-Trawa::Trawa(ReferencjaSwiata& swiat):
-	Roslina(SILA, POTOMSTWO_COOLDOWN, 0, 0, swiat)
+Trawa::Trawa(int x, int y, SwiatRef& swiat) :
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, x, y, swiat)
+{}
+Trawa::Trawa(SwiatRef& swiat):
+	Roslina(SILA, POTOMSTWO_COOLDOWN, POTOMSTWO_SZANSA, 0, 0, swiat)
 {}
 
-Trawa::~Trawa()
-{
-	cout << "Trawa Papa" << endl;
-}
-
-void Trawa::akcja()
-{
-	if (gotowyNaPotomstwo())
-	{
-		oczekujacePotomstwo = true;
-		resetPotomstwoCooldown();
-	}
-	potomstwoCooldownWDol();
-}
-void Trawa::kolizja(Organizm& atakujacy)
-{
-	this->zyje = false;
-}
 void Trawa::rysowanie()
 {
 	cout << ZNAK;
@@ -39,15 +24,21 @@ char Trawa::getZnak()
 
 void Trawa::stworzPotomstwo()
 {
-	
+	Trawa* potomstwo = new Trawa(swiat);
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
+		delete potomstwo;
+	else
+	{
+		resetPotomstwoCooldown();
+		swiat.dodajLog(potomstwo->raportZNarodzin());
+	}
 }
 string Trawa::getNazwa() const
 {
 	return "Trawa";
 }
 
-void Trawa::potomstwoCooldownWDol()
+void Trawa::resetPotomstwoCooldown()
 {
-	if (POTOMSTWO_SZANSA * 1000 > rand() % 1000)
-		potomstwoCooldown = potomstwoCooldown > 0 ? potomstwoCooldown - 1 : potomstwoCooldown;
+	potomstwoCooldown = POTOMSTWO_COOLDOWN;
 }

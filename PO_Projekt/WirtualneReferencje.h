@@ -32,7 +32,7 @@ public:
 	virtual void set(int x, int y, ListaOrganizmowRef::iterator* it) = 0;
 };
 
-class ReferencjaSwiata
+class SwiatRef
 {
 public:
 	virtual void dodajOrganizm(Organizm* organizm, int x, int y) = 0;
@@ -41,3 +41,4 @@ public:
 	virtual void dodajLog(string komunikat) = 0;
 };
 
+class Test{};

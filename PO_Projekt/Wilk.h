@@ -4,16 +4,15 @@
 class Wilk : 
 	public Zwierze
 {
-	static const int SILA = 9;
+	static const int SILA = 8;
 	static const int INICJATYWA = 5;
 	static const int POTOMSTWO_COOLDOWN = 5;
 	static const char ZNAK = 'W';
 
 public:
-	Wilk(int x, int y, ReferencjaSwiata& swiat);
-	Wilk(ReferencjaSwiata& swiat);
-	~Wilk();
-	void akcja() override;
+	Wilk(int x, int y, int cooldown, int sila, SwiatRef& swiat);
+	Wilk(int x, int y, SwiatRef& swiat);
+	Wilk(SwiatRef& swiat);
 	void kolizja(Organizm& atakujacy) override;
 	void stworzPotomstwo() override;
 	void rysowanie() override;

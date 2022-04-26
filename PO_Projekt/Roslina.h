@@ -1,25 +1,20 @@
 #pragma once
 #include "Organizm.h"
+
+
+
 class Roslina :
     public Organizm
 {
-	static const int POTOMSTWO_COOLDOWN = 1;
+	const int precyzjaLosowania = 1000;
+	const double POTOMSTWO_SZANSA;
 public:
-	Roslina(int sila, int potomstwoCooldown, int x, int y, ReferencjaSwiata& swiat);
+	Roslina(int sila, int potomstwoCooldown, double potomstwoSzansa, int x, int y, SwiatRef& swiat);
 
-	void akcja()
-	{
-
-	}
-
-	void kolizja(Organizm& atakujacy) override
-	{
-		atakujacy.zabij();
-	}
-
-	void resetPotomstwoCooldown() override
-	{
-		potomstwoCooldown = POTOMSTWO_COOLDOWN;
-	}
+	virtual void akcja();
+	virtual void kolizja(Organizm& atakujacy) override;
+	bool gotowyNaPotomstwo() const override;
+	string toString() override;
+	void operator<<(ifstream& f) override;
 };
 

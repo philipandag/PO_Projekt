@@ -1,17 +1,15 @@
 #include "Lis.h"
 
-Lis::Lis(int x, int y, ReferencjaSwiata& swiat) :
+Lis::Lis(int x, int y, int cooldown, int sila, SwiatRef& swiat) :
+	Zwierze(sila == -1 ? SILA : sila, INICJATYWA, cooldown == -1 ? POTOMSTWO_COOLDOWN : cooldown, x, y, swiat)
+{}
+Lis::Lis(int x, int y, SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, x, y, swiat)
 {}
-
-Lis::Lis(ReferencjaSwiata& swiat) :
+Lis::Lis(SwiatRef& swiat) :
 	Zwierze(SILA, INICJATYWA, POTOMSTWO_COOLDOWN, swiat)
 {}
 
-Lis::~Lis()
-{
-	cout << "Lis Papa" << endl;
-}
 
 void Lis::akcja()
 {
@@ -51,7 +49,7 @@ void Lis::kolizja(Organizm& atakujacy)
 void Lis::stworzPotomstwo()
 {
 	Lis* potomstwo = new Lis(swiat);
-	if (!potomstwo->sprobujPostawicWOkolicy(x, y))
+	if (!potomstwo->sprobujDodacWOkolicy(x, y))
 		delete potomstwo;
 	else
 	{

@@ -1,6 +1,6 @@
 #pragma once
 #include "ListaOrganizmow.h"
-#include "ReferencjaSwiataDlaOrganizmu.h"
+#include "WirtualneReferencje.h"
 class Plansza:
 	public PlanszaRef
 {

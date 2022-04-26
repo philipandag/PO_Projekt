@@ -2,7 +2,7 @@
 #include <vector>
 #include <list>
 #include "Organizm.h"
-#include "ReferencjaSwiataDlaOrganizmu.h"
+#include "WirtualneReferencje.h"
 using namespace std;
 
 class ListaOrganizmow:
